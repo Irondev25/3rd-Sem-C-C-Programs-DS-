@@ -51,6 +51,16 @@ int peek(struct StackNode *root)
     return root->data;
 }
 
+struct StackNode *createStackNodePtr(){
+    struct StackNode *new_node;
+    return new_node;
+}
+
+struct StackNode craeteStacknode(){
+    struct StackNode new_node;
+    return new_node;
+}
+
 int main()
 {
     struct StackNode *root = NULL;

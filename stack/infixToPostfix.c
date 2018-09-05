@@ -80,22 +80,12 @@ int main(){
     printf("Given Expression: %s\n", expr);
     printf("Postfix Expression: ");
     while(*expr){
+
+        //if character is operator
         if(isalpha(*expr)){
-            printf("%c", *expr);
+            
         }
-        else if(*expr == '(')
-            push(stack, *expr);
-        else if(*expr == ')'){
-            while(!isEmpty(stack) && peek(stack) != '(')
-                printf("%c", pop(stack));
-            pop(stack);
-        }
-        else if(isOprator(*expr)){
-            while(oprandPrecedence(peek(stack)) > oprandPrecedence(*expr)){
-                printf("%c", pop(stack));
-            }
-            push(stack ,*expr);
-        }
+
         expr++;
     }
     while(!isEmpty(stack)){
