@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<ctype.h>
+#include<stdbool.h>
 
 struct ArrayStack{
     int top;
@@ -17,32 +18,32 @@ struct ArrayStack* createStack(){
 }
 
 
-int isEmpty(struct ArrayStack *s){
+bool isEmpty(struct ArrayStack *s){
     if(s->top == -1)
-        return 1;
-    return 0;
+        return true;
+    return false;
 }
 
-int isFull(struct ArrayStack *s){
-    if(s->top == 30)
-        return 1;
-    return 0;
+bool isFull(struct ArrayStack *s){
+    if(s->top == 29)
+        return true;
+    return false;
 }
 
 
-void push(struct ArrayStack *stack ,char data){
-    if(!isFull(stack)){
-        stack->top++;
-        stack->arr[stack->top] = data;
+void push(struct ArrayStack **stack ,char data){
+    if(!isFull(*stack)){
+        (*stack)->top++;
+        (*stack)->arr[(*stack)->top] = data;
     }
 }
 
 
-char pop(struct ArrayStack *stack){
+char pop(struct ArrayStack **stack){
     char temp;
-    if(!isEmpty(stack)){
-        temp = stack->arr[stack->top];
-        stack->top--;
+    if(!isEmpty(*stack)){
+        temp = (*stack)->arr[(*stack)->top];
+        (*stack)->top--;
         return temp;
     }
     return '\0';
@@ -52,44 +53,50 @@ char pop(struct ArrayStack *stack){
 char peek(struct ArrayStack *s){
     if(!isEmpty(s))
         return s->arr[s->top];
-}
-
-int isOprator(char data){
-    if(data == '+' || data == '-' || data=='*' || data=='/' || data == '^')
-        return 1;
-    return 0;
+    return '\0';
 }
 
 
-int oprandPrecedence(char data){
+int priority(char data){
     if(data == '+' || data == '-')
         return 1;
-    if(data == '*' || data == '/')
+    else if(data == '*' || data == '/')
         return 2;
-    if(data == '^')
+    else if(data == '^')
         return 3;
+    else
+        return -1;        //imp statement
 }
 
 
 int main(){
-    char expression[30], *expr;
+    char expression[30], *expr, x;
     struct ArrayStack *stack = createStack();
     printf("Enter an Expression: ");
     scanf("%s", expression);
     expr = expression;
     printf("Given Expression: %s\n", expr);
     printf("Postfix Expression: ");
-    while(*expr){
-
+    while(*expr != '\0'){
         //if character is operator
-        if(isalpha(*expr)){
-            
+        if(isalnum(*expr))
+            printf("%c", *expr);
+        else if(*expr == '(')
+            push(&stack, *expr);
+        else if(*expr == ')'){
+            while(!isEmpty(stack) && (x=pop(&stack)) != '('){
+                printf("%c", x);
+            }
         }
-
+        else{
+            while(!isEmpty(stack) && priority(peek(stack)) >= priority(*expr))
+                printf("%c", pop(&stack));
+            push(&stack, *expr);
+        }
         expr++;
     }
     while(!isEmpty(stack)){
-        printf("%c", pop(stack));
+        printf("%c", pop(&stack));
     }
     printf("\n");
     return 0;
