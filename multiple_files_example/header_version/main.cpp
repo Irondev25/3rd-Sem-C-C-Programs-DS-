@@ -1,7 +1,9 @@
 #include<iostream>
-#include "recursion.h"
 
 using namespace std;
+
+
+long factorial(int);
 
 
 int main(){

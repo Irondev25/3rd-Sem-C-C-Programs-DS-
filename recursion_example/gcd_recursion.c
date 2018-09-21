@@ -3,10 +3,8 @@
 
 int main(){
     int GCD(int , int);
-    int a,b;
-    printf("Enter 2 numbers to find its GCD.\n");
-    scanf("%d%d", &a, &b);
-    printf("GCD of %d and %d is %d", a, b, GCD(a,b));
+    int GCDof3Num(int, int, int);
+    printf("%d",GCDof3Num(16, 32, 96));
     return 0;
 }
 
@@ -36,4 +34,8 @@ int GCD(int a, int b){
     else{
         return GCD(b, a%b);
     }
+}
+
+int GCDof3Num(int a, int b, int c){
+    return GCD(GCD(a,b),c);
 }
