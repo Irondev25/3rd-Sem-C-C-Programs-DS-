@@ -2,4 +2,4 @@ a.exe
 a.out
 *.o
 testing.c
-testing2.cpp
+stage.cpp
