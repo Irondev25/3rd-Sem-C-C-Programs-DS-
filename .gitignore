@@ -1,5 +1,6 @@
 a.exe
 a.out
 *.o
-testing.c
-stage.cpp
+testing.cpp
+swapNode.cpp
+testing2.c
