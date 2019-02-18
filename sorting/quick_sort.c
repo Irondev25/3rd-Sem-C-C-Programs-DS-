@@ -9,30 +9,30 @@ void swap(int* a, int *b){
     *b = temp;
 }
 
-int _partition(int *arr, int low, int high){
-    int pivot=arr[low],i=low+1,j=high,temp;
+int _partition(int arr[], int low, int high){
+    int pivot=arr[low],i=low,j=high,temp;
     while(1){
-        while(i<=high && arr[i]<pivot){
+        while(i<=high && arr[i]<=pivot){
             i++;
         }
-        while(j>low && arr[j]>pivot){
+        while(arr[j]>=pivot){
+            if (i > j)
+            {
+                break;
+            }
             j--;
         }
-        if(i>=j)
+        if (i >= j)
+        {
             break;
-        else{
-            temp=arr[i];
-            arr[i]=arr[j];
-            arr[j]=temp;
         }
+        swap(&arr[i],&arr[j]);
     }
-    temp=pivot;
-    arr[0]=arr[j];
-    arr[j]=temp;
+    swap(&arr[low],&arr[j]);
     return j;
 }
 
-void _quick_sort(int *arr, int low, int high){
+void _quick_sort(int arr[], int low, int high){
     if(low<high){
         int pivot=_partition(arr,low,high);
         _quick_sort(arr,low,pivot-1);
@@ -40,7 +40,7 @@ void _quick_sort(int *arr, int low, int high){
     }
 }
 
-void quick_sort(int *arr,int n){
+void quick_sort(int arr[],int n){
     _quick_sort(arr,0,n-1);
 }
 
