@@ -20,13 +20,26 @@ void dfs(int s, bool* visited, int n){
 int main(){
     int n;
     cin>>n;
-    bool visited[n];
+    bool visited[n],connect=false;
     fill(visited,visited+n,false);
     for(int i=0;i<n;i++){
         for(int j=0;j<n;j++){
             cin>>adj[i][j];
         }
     }
-    dfs(0,visited,n);
+    int i=0;
+    while(connect==false){
+        connect=true;
+        dfs(i, visited, n);
+        cout << endl;
+        for (i = 0; i < n; i++)
+        {
+            if (!visited[i])
+            {
+                connect = false;
+                break;
+            }
+        }
+    }
     return 0;
 }
