@@ -3,7 +3,7 @@
 #include<time.h>
 #include<math.h>
 
-long int count=0;
+double count=0;
 
 void insertion_sort(int *arr,int n){
     int i,v,j;
@@ -22,7 +22,7 @@ void insertion_sort(int *arr,int n){
 int main(){
     srand(time(0));
     double test = 10;
-    int n, i;
+    long int n, i;
     int asc[100000], dsc[100000], random[100000];
     while (test <= 100000)
     {
@@ -36,17 +36,18 @@ int main(){
         }
         count = 0;
         insertion_sort(asc, n);
-        printf("%ld \n", count);
+        printf("%lf \n", count);
         count = 0;
         insertion_sort(dsc, n);
-        printf("%ld \n", count);
+        printf("%lf \n", count);
         printf("BO/n*n: %lf\n", (double)count / (n * n));
         count = 0;
         insertion_sort(random, n);
-        printf("%ld \n", count);
+        printf("%lf \n", count);
         printf("BO/n*n: %lf\n", (double)count / (n * n));
         test *= 10;
         printf("\n\n");
     }
+
     return 0;
 }
