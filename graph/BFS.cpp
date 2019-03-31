@@ -1,56 +1,51 @@
 #include<bits/stdc++.h>
-
 using namespace std;
 
-class Graph
-{
-    int V;
-    list<int> *adj;
-    public:
-    Graph(int V);
-    void addEdge(int v, int w);
-    void BFS(int s);
-    void DFSUtil(int, bool*);
-    void DFS(int);
-};
+int graph[100][100];
+int visited[100];
 
-Graph::Graph(int V)
-{
-    this->V = V;
-    adj = new list<int>[V];
-}
+queue<int> q;
 
-void Graph::addEdge(int v, int w){
-    adj[v].push_back(w);
-}
-
-void Graph::BFS(int s)
-{
-    bool *visited = new bool[V];
-    for(int i=0; i<V; i++)
-        visited[i]=false;
-
-    list<int> queue;
-
-    visited[s]=true;
-    queue.push_back(s);
-
-    list<int>::iterator i;
-
-    while(!queue.empty())
-    {
-        s=queue.front();
-        cout<<s<<" ";
-        queue.pop_front();
-        for(i=adj[s].begin(); i!=adj[s].end(); i++)
-        {
-            if(!visited[*i])
-            {
-                visited[*i]=true;
-                queue.push_back(*i);
+void bfs(int v,int n){
+    int temp;
+    visited[v]=1;
+    q.push(v);
+    cout<<v<<" ";
+    while(!q.empty()){
+        temp=q.front();
+        q.pop();
+        for(int i=0;i<n;i++){
+            if(visited[i]==0 && graph[temp][i]==1){
+                q.push(i);
+                visited[i]=1;
+                cout<<i<<" ";
             }
         }
     }
 }
 
-void Graph::DFSUtil(int v, boo
+void BFS(int n){
+    for(int i=0;i<n;i++){
+        if(visited[i]==0){
+            bfs(i,n);
+            cout<<endl;
+        }
+    }
+}
+
+int main(){
+    int n;
+    cout<<"Enter number of Edges:\n";
+    cin>>n;
+    cout<<"Enter adjacent Matrix:\n";
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            cin>>graph[i][j];
+        }
+    }
+    for(int i=0;i<n;i++)
+        visited[i]=0;
+    cout<<"Graph Traversal\n";
+    BFS(n);
+    return 0;
+}
